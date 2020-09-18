@@ -64,7 +64,7 @@ const Header = () => {
           </div>
         </div>
         <div className={classes.searchContainer}>
-          <button className={`${classes.getStartedBtn} ${classes.black}`}>Search Projects</button>
+          <Link to ='/projects'><button className={`${classes.getStartedBtn} ${classes.black}`}>Search Projects</button></Link>
         </div>
       </div>
       <div className={classes.mobileContainer}>
