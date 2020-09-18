@@ -64,7 +64,7 @@ const Header = () => {
           </div>
         </div>
         <div className={classes.searchContainer}>
-          <input className={classes.search} placeholder='Search'></input>
+          <button className={`${classes.getStartedBtn} ${classes.black}`}>Search Projects</button>
         </div>
       </div>
       <div className={classes.mobileContainer}>

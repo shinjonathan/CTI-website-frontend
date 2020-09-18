@@ -50,28 +50,20 @@ const useStyles = createUseStyles( theme => ({
   linksArrows: {
     display: 'none',
   },
-  searchContainer: {
-    width: '180px',
-  },
-  search: {
-    width: '180px',
-    height: '30px',
-    padding: '15px',
-    borderRadius: '22.5px',
-    border: '1px solid #C3C3C3',
-    background: '#FFFFFF url(images/search.svg) no-repeat scroll 8px 5.5px',
-    paddingLeft: '36px',
-    fontFamily: theme.primaryFontFamily,
+  /* TODO: These should be added to a global stylesheet */
+  getStartedBtn: {
+    display: 'inline-block',
+    fontWeight: 'bold',
     fontSize: '16px',
+    color: theme.button1TextColor,
+    border: `1px solid ${theme.button1BG}`,
+    backgroundColor: theme.button1BG,
+    borderRadius: '22.5px',
+    paddingLeft: '60px',
+    paddingRight: '60px',
+    padding: '10px',
     outline: 'none',
-    boxSizing: 'border-box',
-    transition: 'width .8s',
-    '&:focus': {
-      width: '97%',
-      position: 'absolute',
-      top: '35px',
-      right: '10px',
-    }
+    cursor: 'pointer',
   },
   subLinksContainer: {
     display: 'none',
