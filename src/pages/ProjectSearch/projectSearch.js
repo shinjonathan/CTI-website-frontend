@@ -4,7 +4,8 @@ import { Orbitals } from 'react-spinners-css';
 
 import { Results, SearchBox, SearchProvider } from "@elastic/react-search-ui";
 import { Layout } from "@elastic/react-search-ui-views";
-import "@elastic/react-search-ui-views/lib/styles/styles.css";
+import "./styles.css";
+// import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 
 
@@ -36,8 +37,19 @@ const ProjectSearch = () => {
     transform: 'translate(-50%, -50%)'
   }
 
+  const breadCrumb = {
+    alignContent: 'left'
+  }
+
+  const pageTitle = {
+    textAlign: 'center'
+  }
+
 
   return (
+
+    // TODO: Breadcrumb... HOME / SEARCH
+
 
 
     <SearchProvider
@@ -46,13 +58,16 @@ const ProjectSearch = () => {
       }}
     >
       <div className="App">
+        <h5>Home / Search</h5>
+        <h1 style={pageTitle}>Search Projects</h1>
+        <SearchBox style = />
       {/* <div style={ViewContainer}>
           <span style={Content}><Orbitals color="#0CB2E7" /><p>Coming Soon...</p></span>
       </div> */}
-        <Layout
-          header={<SearchBox />}
-          bodyContent={<Results titleField="title" urlField="nps_link" />}
-        />
+        {/* <Layout
+          header={<SearchBox/>}
+          bodyContent={<Results titleField="title" urlField="nps_link"  />}
+        /> */}
       </div>
     </SearchProvider>
 
