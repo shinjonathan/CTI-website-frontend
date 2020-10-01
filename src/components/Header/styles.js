@@ -51,7 +51,7 @@ const useStyles = createUseStyles( theme => ({
     display: 'none',
   },
   /* TODO: These should be added to a global stylesheet */
-  getStartedBtn: {
+  navButton: {
     display: 'inline-block',
     fontWeight: 'bold',
     fontSize: '16px',

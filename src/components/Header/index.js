@@ -64,11 +64,11 @@ const Header = () => {
           </div>
         </div>
         <div className={classes.searchContainer}>
-          <button className={`${classes.getStartedBtn} ${classes.black}`}>Search Projects</button>
+          <Link to="/projects"><button className={`${classes.navButton} ${classes.black}`}>Search Projects</button></Link>
         </div>
       </div>
       <div className={classes.mobileContainer}>
-        <input className={classes.mobileSearch} placeholder='Search'></input>
+        <Link to="/projects"><button className={classes.navButton} placeholder='Search'></button></Link>
         <div 
           className={classes.burger} 
           onClick={() => setIsBurgerOpen(bool => !bool)}
