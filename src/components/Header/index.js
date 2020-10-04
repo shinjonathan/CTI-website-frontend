@@ -68,7 +68,7 @@ const Header = () => {
         </div>
       </div>
       <div className={classes.mobileContainer}>
-        <Link to="/projects"><button className={classes.navButton} placeholder='Search'></button></Link>
+        {/* <Link to="/projects"><button className={classes.navButton} placeholder='Search'></button></Link> */}
         <div 
           className={classes.burger} 
           onClick={() => setIsBurgerOpen(bool => !bool)}
