@@ -54,7 +54,6 @@ export default function ProjectCard() {
 
   return (
     <Card className={classes.root}>
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
       <CardContent>
         <Grid container>
           <Grid container xs={12}>

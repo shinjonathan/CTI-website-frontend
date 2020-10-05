@@ -1,5 +1,4 @@
-import React from 'react';
-import { Orbitals } from 'react-spinners-css';
+import React, { useState } from 'react';
 import NavBreadcrumb from '../components/NavBreadcrumb'
 import ProjectCard from '../components/ProjectCard'
 import Header from '../components/Header'
@@ -12,10 +11,12 @@ import TextField from '@material-ui/core/TextField';
 
 import Grid from '@material-ui/core/Grid';
 
+
+
 const Projects = () => {
 
   const ViewContainer = {
-    width: '90%',
+    width: '80%',
     padding: "25px",
     alignContent: 'center',
     textAlign: 'center'
@@ -28,16 +29,17 @@ const Projects = () => {
   }
 
 
-  return (
-    <>
-      <Header />
-      <div style={ViewContainer}>
-        <NavBreadcrumb pageName="Search" />
+  const handleSubmit = (event) => {
+    if (event.key === 'Enter') {
+      console.log(query)
+    }
+  }
 
-        <Grid container>
-          <Grid item xs={12}><h1>Search Projects</h1></Grid>
-          <Grid item xs={12}>
-            <TextField
+  const [query, setQuery] = useState('');
+
+
+  const SearchBar = 
+    <TextField
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -45,15 +47,28 @@ const Projects = () => {
                   </InputAdornment>
                 ),
               }}
-              id="standard-full-width"
+              value = {query}
+              onInput = { e => setQuery (e.target.value)}
               style={{ margin: 8 , width:'70%'}}
               placeholder="Search the Civic Tech Index"
               fullWidth
               margin="normal"
+              onKeyPress={handleSubmit}
               InputLabelProps={{
                 shrink: true,
               }}
             />
+
+
+  return (
+    <>
+      <Header />
+      <div style={ViewContainer}>
+        <NavBreadcrumb pageName="Search" />
+        <Grid container>
+          <Grid item xs={12}><h1>Search Projects</h1></Grid>
+          <Grid item xs={12}>
+            {SearchBar}
           </Grid>
           <Grid container xs={12}>
             <Grid item xs={3}><h2 style={{textAlign:"left"}}>Expand Results +</h2><h2 style={{textAlign:"left"}}>Refine Results +</h2></Grid>
