@@ -15,6 +15,8 @@ import Grid from '@material-ui/core/Grid';
 
 const Projects = () => {
 
+  const crumbs = [{name: 'Home', href: '/'}, {name: 'Search', href: '/projects'}]
+
   const ViewContainer = {
     width: '80%',
     padding: "25px",
@@ -38,6 +40,8 @@ const Projects = () => {
   const [query, setQuery] = useState('');
 
 
+
+  // Component out - This will be used 
   const SearchBar = 
     <TextField
               InputProps={{
@@ -64,7 +68,7 @@ const Projects = () => {
     <>
       <Header />
       <div style={ViewContainer}>
-        <NavBreadcrumb pageName="Search" />
+        <NavBreadcrumb crumbs={crumbs} />
         <Grid container>
           <Grid item xs={12}><h1>Search Projects</h1></Grid>
           <Grid item xs={12}>
