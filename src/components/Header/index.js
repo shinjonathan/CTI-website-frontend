@@ -32,7 +32,7 @@ const Header = () => {
     <nav className={classes.nav}>
       <div className={classes.background}></div>
       <Link to='/' onClick={() => setIsBurgerOpen(false)}><div className={classes.circle}></div></Link>
-      <Link to='/' onClick={() => setIsBurgerOpen(false)}><img className={classes.logo} src='/images/cti-logo-bw.svg' alt='civic logo'/></Link>
+      <Link to='/' onClick={() => setIsBurgerOpen(false)}><img className={classes.logo} src='/images/cti-logo.svg' alt='civic logo'/></Link>
       <div className={classes.flexContainer} ref={nav}>
         <div className={classes.linksContainer}>
           <Link to='/' className={classes.links} onClick={() => setIsBurgerOpen(false)}>Tag Generator</Link>
@@ -68,7 +68,6 @@ const Header = () => {
         </div>
       </div>
       <div className={classes.mobileContainer}>
-        <Link to="/projects"><button className={classes.navButton} placeholder='Search'></button></Link>
         <div 
           className={classes.burger} 
           onClick={() => setIsBurgerOpen(bool => !bool)}

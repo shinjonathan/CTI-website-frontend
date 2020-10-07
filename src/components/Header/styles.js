@@ -4,7 +4,7 @@ const useStyles = createUseStyles( theme => ({
   nav: {
     position: 'relative',
     height: '100px',
-    backgroundColor: theme.headerBG,
+    backgroundColor: '#FFF',
     fontSize: '16px',
     fontFamily: theme.primaryFontFamily,
     zIndex: '900',
@@ -41,7 +41,7 @@ const useStyles = createUseStyles( theme => ({
   },
   links: {
     textDecoration: 'none',
-    color: theme.primaryTextColor,
+    color: '#0D99C6',
     margin: '10px',
   },
   linksWithArrows: {

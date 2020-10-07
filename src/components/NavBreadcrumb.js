@@ -19,6 +19,7 @@ const defaultBreadcrumb = {
  * You may pass an array containing an object of 
  * <NavBreadcrumb crumbs={[{name: 'Home', href='/'}]}
  * @param {Array} crumbs Array of name & href pairs.
+ * @param {String} color Use color scheme
  */
 export default function NavBreadcrumb(props) {
   const crumbs = props.crumbs
@@ -33,7 +34,7 @@ export default function NavBreadcrumb(props) {
 
   return (
     <div style={defaultBreadcrumb}>
-      <Breadcrumbs aria-label="breadcrumb">
+      <Breadcrumbs aria-label="breadcrumb" style={{color:props.color, padding: '25px'}}>
         {displayCrumbs}
       </Breadcrumbs>
     </div>

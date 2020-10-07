@@ -1,26 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent'; import Button from '@material-ui/core/Button';
-import { Fork, Star, UsedBy, Watch } from 'react-github-buttons';
-
-import LinkIcon from '@material-ui/icons/Link';
+import { Star, Watch } from 'react-github-buttons';
 
 import Grid from '@material-ui/core/Grid';
 
-const { REACT_APP_API_URL } = process.env;
-
 const useStyles = makeStyles({
-  root: {
-    minWidth: 500,
-    fontFamily: 'Work Sans',
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
   title: {
     fontSize: 14,
   },
@@ -42,58 +28,62 @@ const useStyles = makeStyles({
     textAlign: 'left',
     fontSize: '20px',
   },
-  projectSubtitle: {
-
-  }
 });
 
 // TODO: Fit to figma template with appropriate props.
-export default function ProjectCard() {
+export default function ProjectCard(props) {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-
   return (
-    <Card className={classes.root}>
+    <Card>
       <CardContent>
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid container xs={12}>
-            <Grid item xs={2}><span><img src="/images/hack-for-la.png" /></span></Grid>
+            {/* Handles Image */}
+            <Grid item sm={1} xs={12}>
+              <span><img style={{padding:'20px', alignContent:'center'}} src={props.organizationAvatarUrl} width='72px'/></span>
+            </Grid>
             <Grid container xs={10}>
-              <Grid item xs={8} className={classes.main}><span className={classes.projectTitle}><u>civictechindex/<b>website</b></u></span></Grid>
-              <Grid item xs={2}><span><Watch owner='facebook' repo='react' /></span></Grid>
-              <Grid item xs={2}><span><Star owner='facebook' repo='react' /></span></Grid>
+              <Grid item xs={8} className={classes.main}><span className={classes.projectTitle}><u>{props.ownerName}/<b>{props.projectName}</b></u></span></Grid>
+              <Grid item xs={2}><span><Watch owner={props.ownerName} repo={props.projectName} /></span></Grid>
+              <Grid item xs={2}><span><Star owner={props.ownerName} repo={props.projectName}/></span></Grid>
               <Grid item xs={10} className={classes.main2}>
-                <span>Join a worldwide movement to catalog every open source civic tech project.</span>
+                <span>{props.projectDescription}</span>
               </Grid>
               <Grid item xs={10} className={classes.main2}>
-                <span><img src="/images/link.svg" /> <Link to="#">cti-dev.herokuapp.com</Link></span>
+                <span><img src="/images/link.svg" /> <a href={props.homepage}>{props.homepage}</a></span>
               </Grid>
-              <Grid item xs={4} className ={classes.main2}>
-                <span>Updated on June 28, 2020</span>
+              <Grid item xs={12} sm={4} className ={classes.main2}>
+                <span>Updated {props.lastUpdate} day(s) ago</span>
+                {/* TODO: Requires dynamic windows. Hours, Days, Month needs to return Date. */}
               </Grid>
-              <Grid item xs={2} className = {classes.main2}>
-                <span><b>28</b> Open Issues</span>
+              <Grid item xs={12} sm={2} className = {classes.main2}>
+                {/* TODO: Link to open issues */}
+                <span><b>{props.issueCount}</b> Open Issues</span> 
               </Grid>
-              <Grid item xs={2} className= {classes.main2}>
+              <Grid item xs={12} sm={2}  className= {classes.main2}>
+                {/* TODO: Open issues - Map + Collect count of new Issues */}
                 <span><b>6</b> New Issues</span>
               </Grid>
-              <Grid item xs={2} className= {classes.main2}>
+              <Grid item xs={12} sm={2} className= {classes.main2}>
+                {/* TODO: Same as open issues. */}
                 <span><b>2</b> Good First Issues</span>
               </Grid>
               <Grid item xs={10} className= {classes.main2}>
-                <b>Affiliations Topic Tags:</b>
+                <b>Affiliations Topic Tags:</b> {props.projectTags}
               </Grid>
               <Grid item xs={10} className= {classes.main2}>
-                <b>Project Language:</b>
+                {/* TODO: Format */}
+                <b>Project Language:</b> {props.projectLanguage}
               </Grid>
               <Grid item xs={10} className= {classes.main2}>
-                <b>Programming Language(s):</b>
+                {/* TODO: Format */}
+                <b>Programming Language(s):</b> {props.programmingLangauge}
               </Grid>
               <Grid item xs={10} className= {classes.main2}>
                 <b>Location:</b>
               </Grid>
               <Grid item xs={10} className= {classes.main2}>
-                <b>Topic Tags:</b>
+                <b>Topic Tags:</b> {props.topics}
               </Grid>
             </Grid>
           </Grid>
