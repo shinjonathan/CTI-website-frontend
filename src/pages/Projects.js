@@ -3,9 +3,8 @@ import NavBreadcrumb from '../components/NavBreadcrumb'
 import ProjectCard from '../components/ProjectCard'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import InputAdornment from '@material-ui/core/InputAdornment';
-import SearchIcon from '@material-ui/icons/Search';
-import TextField from '@material-ui/core/TextField';
+import SearchBar from '../components/SearchBar'
+import SimpleAccordion from '../components/SimpleAccordion'
 
 import './styles.css'
 
@@ -19,111 +18,88 @@ import Container from '@material-ui/core/Container'
 
 const Projects = () => {
 
-  const crumbs = [{name: 'Home', href: '/'}, {name: 'Search', href: '/projects'}]
+  const crumbs = [{ name: 'Home', href: '/' }, { name: 'Search', href: '/projects' }]
 
   const [query, setQuery] = useState('');
   const [results, setResults] = useState('');
-  const [resultCount, setResultCount] = useState('');
-
-  const searchStyle = {
-    border: '1px solid #bdbdbd',
-    borderTopRightRadius: '0.25rem',
-    borderBottomRightRadius: '0.25rem'
-  }
-
+  const [resultsSummaryDisplay, setResultsSummaryDisplay] = useState('');
 
   function calculateDaysSince(updateTime) {
     var days = new Date() - new Date(updateTime);
-    return Math.round(days/(1000 * 3600 * 24))
+    return Math.round(days / (1000 * 3600 * 24))
   }
 
   const handleSubmit = (event) => {
     if (event.key === 'Enter') {
       axios.get(`https://api.github.com/search/repositories`, {
-        headers: {'Accept': 'application/vnd.github.mercy-preview+json'},
-        params: {q :'topic:' + query, sort: 'updated', order: 'desc' }
+        headers: { 'Accept': 'application/vnd.github.mercy-preview+json' },
+        params: { q: 'topic:' + query, sort: 'updated', order: 'desc' }
       })
-      .then(res => {
-        setResultCount(res.data.total_count)
-        const items = res.data.items.map((i) => {
-         return <ProjectCard 
-            organizationAvatarUrl={i.owner.avatar_url}
-            ownerName={i.owner.login}
-            projectName={i.name}
-            projectDescription={i.description}
-            homepage={i.homepage} /* TODO: Fan out */
-            lastUpdate = {calculateDaysSince(i.updated_at)}
-            issueCount = {i.open_issues}
-            projectLanguage = {i.language}
-            topics = {JSON.stringify(i.topics)}
+        .then(res => {
+          setResultsSummaryDisplay(<span>Displaying {res.data.items.length} of {res.data.total_count} Results matching <b>{query}</b></span>)
+          const items = res.data.items.map((i) => {
+            return <ProjectCard
+              organizationUrl={i.owner.html_url}
+              organizationAvatarUrl={i.owner.avatar_url}
+              projectUrl={i.html_url}
+              ownerName={i.owner.login}
+              projectName={i.name}
+              projectDescription={i.description}
+              homepage={i.homepage}
+              lastUpdate={calculateDaysSince(i.updated_at)}
+              issueCount={i.open_issues}
+              projectLanguage={i.language}
+              topics={i.topics}
+              watchers={i.watchers_count}
+              stargazers={i.stargazers_count}
             />
+          })
+          setResults(items);
         })
-        setResults(items);
-      })
     }
   }
-
-  
-
-  // Component out - This will be used 
-  const SearchBar = 
-    <TextField
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-              value = {query}
-              onInput = { e => setQuery (e.target.value)}
-              style={{align: 'center', margin: '0 auto', width:'70%'}}
-              placeholder="Search the Civic Tech Index"
-              fullWidth
-              margin="normal"
-              onKeyPress={handleSubmit}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
 
 
   return (
     <>
       <Header />
-        <div style={{backgroundColor: '#F2F2F2'}}>
-        <Container maxWidth = 'lg'>
-        <NavBreadcrumb crumbs={crumbs} color="#0F1D2F" />
-        <Grid Container>
-          <Grid item xs={12}><h1>Search Projects</h1></Grid>
-          <Grid item xs={12}>
-            <div align='center'>{SearchBar}</div>
-          </Grid>
-          <Grid container xs={12}>
-            <Grid item xs={0} sm={3}><h2 style={{textAlign:"left"}}>Expand Results +</h2><h2 style={{textAlign:"left"}}>Refine Results +</h2></Grid>
-            <Grid item xs={9}>
-              <Grid container={9}>
-                <Grid item style={{ paddingTop: '10px' }}>
+      <div style={{ backgroundColor: '#F2F2F2' }}>
+        <Container maxWidth='lg'>
+          <NavBreadcrumb crumbs={crumbs} color="#0F1D2F" />
+          <Grid Container>
+            <Grid item xs={12}><h1>Search Projects</h1></Grid>
+            <Grid item xs={12}>
+              <SearchBar value={query} onInput={e => setQuery(e.target.value)} placeholder="Search the Civic Tech Index" onKeyPress={handleSubmit} />
+            </Grid>
+            <Grid container xs={12} style={{paddingTop: '10px'}}>
+              <Grid item xs={0} sm={3}><SimpleAccordion/></Grid>
+              <Grid item xs={9}>
+                <Grid container xs={9} sm ={9}>
+                  <Grid item sm={9} xs={9}>{resultsSummaryDisplay}</Grid>
+                  <Grid item style={{ paddingTop: '10px' }}>
 
-                  <ProjectCard 
-            organizationAvatarUrl={t.owner.avatar_url}
-            ownerName={t.owner.login}
-            projectName={t.name}
-            projectDescription={t.description}
-            homepage={t.homepage} /* TODO: Fan out */
-            lastUpdate = {calculateDaysSince(t.updated_at)}
-            issueCount = {t.open_issues}
-            projectLanguage = {t.language}
-            topics = {JSON.stringify(t.topics)}
-            />
-                  {query}
-                  {resultCount}
-                  {results}
+                    <ProjectCard
+                      organizationUrl={t.owner.html_url}
+                      organizationAvatarUrl={t.owner.avatar_url}
+                      projectUrl={t.html_url}
+                      ownerName={t.owner.login}
+                      projectName={t.name}
+                      projectDescription={t.description}
+                      homepage={t.homepage} /* TODO: Fan out */
+                      lastUpdate={calculateDaysSince(t.updated_at)}
+                      issueCount={t.open_issues}
+                      issuesUrl={t.html_url + "/issues"}
+                      projectLanguage={t.language}
+                      topics={t.topics}
+                      watchers={t.watchers_count}
+                      stargazers={t.stargazers_count}
+                    />
+                    {results}
                   </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
         </Container>
       </div>
       <Footer />
